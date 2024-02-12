@@ -14,7 +14,7 @@ build:
   # Skip Windows build due to open issue regarding `go-licenses` warnings on Windows:
   # https://github.com/google/go-licenses/issues/255 
   skip: true  # [win]
-  number: 0
+  number: 1
   script:
     - cd src
     - go-licenses save ./cmd/logcli --save_path ../library_licenses --ignore github.com/grafana/loki 
