@@ -1,5 +1,5 @@
 {% set name = "loki-logcli" %}
-{% set version = "2.9.4" %}
+{% set version = "3.5.8" %}
 
 package:
   name: {{ name|lower }}
@@ -7,17 +7,17 @@ package:
 
 source:
   url: https://github.com/grafana/loki/archive/v{{ version }}.tar.gz
-  sha256: d8d663b3fedbf529a53e9fbf11ddfb899ddaaf253b3b827700ae697c21688b38
+  sha256: 4441408c73dfa5d81f1e26d7b608d3cd943c84132a28f406162b24cbfc2db3e1
   folder: src
 
 build:
   # Skip Windows build due to open issue regarding `go-licenses` warnings on Windows:
   # https://github.com/google/go-licenses/issues/255 
   skip: true  # [win]
-  number: 1
+  number: 0
   script:
     - cd src
-    - go-licenses save ./cmd/logcli --save_path ../library_licenses --ignore github.com/grafana/loki 
+    - go-licenses save ./cmd/logcli --save_path ../library_licenses --ignore github.com/grafana/loki
     - cd cmd/logcli
     - go build -v -o $PREFIX/bin/logcli  # [not win]
     - go install -v .  # [win]
