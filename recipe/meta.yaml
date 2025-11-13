@@ -17,7 +17,7 @@ build:
   number: 0
   script:
     - cd src
-    - go-licenses save ./cmd/logcli --save_path ../library_licenses --ignore github.com/grafana/loki
+    - go-licenses save ./cmd/logcli --save_path ../library_licenses --ignore github.com/grafana/loki --ignore github.com/jmespath/go-jmespath
     - cd cmd/logcli
     - go build -v -o $PREFIX/bin/logcli  # [not win]
     - go install -v .  # [win]
