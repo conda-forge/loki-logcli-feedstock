@@ -19,10 +19,7 @@ build:
     - cd src
     - go-licenses save ./cmd/logcli --save_path ../library_licenses --ignore github.com/grafana/loki --ignore github.com/jmespath/go-jmespath
     - cd cmd/logcli
-    - go build -v -o $PREFIX/bin/logcli  # [not win]
-    - go install -v .  # [win]
-    # Clear out cache to avoid file not removable warnings
-    - chmod -R u+w $(go env GOPATH) && rm -r $(go env GOPATH)  # [unix]
+    - go build -v -o $PREFIX/bin/logcli
 
 requirements:
   build:
