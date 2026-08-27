@@ -1,37 +1,38 @@
-{% set name = "loki-logcli" %}
-{% set version = "3.7.6" %}
+schema_version: 1
+
+context:
+  version: 3.7.6
 
 package:
-  name: {{ name|lower }}
-  version: {{ version }}
+  name: loki-logcli
+  version: ${{ version }}
 
 source:
-  url: https://github.com/grafana/loki/archive/v{{ version }}.tar.gz
+  url: https://github.com/grafana/loki/archive/v${{ version }}.tar.gz
   sha256: 0dd21abbe613ff51807e4e58cafe4ce71dd1561396c4dc7eb4d7f7e8f577baf1
-  folder: src
+  target_directory: src
 
 build:
-  # Skip Windows build due to open issue regarding `go-licenses` warnings on Windows:
-  # https://github.com/google/go-licenses/issues/255 
-  skip: true  # [win]
   number: 0
   script:
     - cd src
     - go-licenses save ./cmd/logcli --save_path ../library_licenses --ignore github.com/grafana/loki --ignore github.com/jmespath/go-jmespath --ignore github.com/apache/thrift --ignore go.opentelemetry.io/otel/exporters/jaeger --ignore github.com/coder/quartz
     - cd cmd/logcli
-    - go build -v -o $PREFIX/bin/logcli
+    - if: win
+      then: go build -v -o %LIBRARY_BIN%\logcli.exe
+      else: go build -v -o $PREFIX/bin/logcli
 
 requirements:
   build:
-    - {{ compiler('go-nocgo') }}
+    - ${{ compiler("go-nocgo") }}
     - go-licenses
 
-test:
-  commands:
-    - logcli --version
+tests:
+  - script:
+      - logcli --version
 
 about:
-  home: https://github.com/grafana/loki
+  homepage: https://github.com/grafana/loki
   license: AGPL-3.0-only
   license_file:
     - src/LICENSE
