@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  version: 3.7.6
+  version: "3.7.7"
 
 package:
   name: loki-logcli
@@ -9,7 +9,7 @@ package:
 
 source:
   url: https://github.com/grafana/loki/archive/v${{ version }}.tar.gz
-  sha256: 0dd21abbe613ff51807e4e58cafe4ce71dd1561396c4dc7eb4d7f7e8f577baf1
+  sha256: e2e8863c15ad97a4649a6f0795d549a8977e44f4413e2b001e6eb0c12c22eb9c
   target_directory: src
 
 build:
